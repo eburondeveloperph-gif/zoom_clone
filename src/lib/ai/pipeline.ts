@@ -3,7 +3,7 @@
 
 export interface PipelineConfig {
   sourceLanguage?: string;
-  targetLanguage: string;
+  targetLanguage?: string;
   voiceId?: string;
   enableTTS?: boolean;
   onTranscript?: (text: string, isFinal: boolean) => void;
