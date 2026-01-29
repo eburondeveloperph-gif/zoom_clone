@@ -3,8 +3,8 @@ import { Metadata } from 'next';
 import React, { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'YOOM',
-  description: 'Video calling App',
+  title: 'Orbit',
+  description: 'Orbit meetings and collaboration',
   icons: {
     icon: '/icons/logo.svg',
   },

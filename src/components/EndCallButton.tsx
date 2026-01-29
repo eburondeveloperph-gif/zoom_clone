@@ -24,8 +24,11 @@ const EndCallButton = () => {
   };
 
   return (
-    <Button className=" bg-red-500" onClick={endCall}>
-      End call for everyone
+    <Button
+      className="h-9 rounded-full bg-orbit-danger px-4 text-xs font-semibold text-white hover:bg-orbit-danger/90"
+      onClick={endCall}
+    >
+      End for all
     </Button>
   );
 };

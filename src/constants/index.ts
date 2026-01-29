@@ -15,7 +15,7 @@ export const sidebarLinks = [
     imgUrl: '/icons/previous.svg',
   },
   {
-    label: 'Recording',
+    label: 'Recordings',
     route: '/recordings',
     imgUrl: '/icons/Video.svg',
   },
@@ -32,4 +32,12 @@ export const avatarImages = [
   '/images/avatar-3.png',
   '/images/avatar-4.png',
   '/images/avatar-5.png',
+];
+
+export const navLinks = [
+  { label: 'Home', route: '/' },
+  { label: 'Upcoming', route: '/upcoming' },
+  { label: 'Previous', route: '/previous' },
+  { label: 'Recordings', route: '/recordings' },
+  { label: 'Personal Room', route: '/personal-room' },
 ];

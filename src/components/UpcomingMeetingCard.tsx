@@ -21,9 +21,17 @@ const UpcomingMeetingCard = () => {
   }
 
   return (
-    <h2 className="glassmorphism lg:max-w-[320px]">
-      Upcoming Meeting: {meetingTime || `No Upcoming Meeting`}
-    </h2>
+    <div className="flex flex-col gap-2">
+      <p className="text-sm font-semibold uppercase tracking-wide text-orbit-muted">
+        Upcoming meeting
+      </p>
+      <h2 className="text-lg font-semibold text-orbit-text">
+        {meetingTime || 'No upcoming meetings scheduled'}
+      </h2>
+      <p className="text-sm text-orbit-muted">
+        Share your invite when you are ready to start.
+      </p>
+    </div>
   );
 };
 

@@ -3,11 +3,14 @@ import React from 'react';
 
 const Previous = () => {
   return (
-    <section className="flex size-full flex-col gap-10 text-white">
-      <h1 className="text-3xl font-bold">
-        Previous
-        <CallList type="ended" />
-      </h1>
+    <section className="flex size-full flex-col gap-8">
+      <div className="flex flex-col gap-2">
+        <p className="text-xs font-semibold uppercase tracking-wide text-orbit-muted">
+          History
+        </p>
+        <h1 className="text-2xl font-semibold text-orbit-text">Previous meetings</h1>
+      </div>
+      <CallList type="ended" />
     </section>
   );
 };

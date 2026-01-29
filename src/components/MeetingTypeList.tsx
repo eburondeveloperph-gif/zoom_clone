@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import HomeCard from './HomeCard';
 import { useRouter } from 'next/navigation';
 import MeetingModel from './MeetingModel';
 import { useUser } from '@clerk/nextjs';
@@ -9,6 +8,7 @@ import { useToast } from './ui/use-toast';
 import { Textarea } from './ui/textarea';
 import ReactDatePicker from 'react-datepicker';
 import { Input } from './ui/input';
+import { Button } from './ui/button';
 
 const MeetingTypeList = () => {
   const { toast } = useToast();
@@ -72,50 +72,91 @@ const MeetingTypeList = () => {
 
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetails?.id}`;
   return (
-    <section className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-      <HomeCard
-        img="/icons/add-meeting.svg"
-        title="Add a Meeting"
-        description="Start an instant meeting"
-        handleClick={() => setMeetingState('isInstantMeeting')}
-        className="bg-orange-1"
-      />
-      <HomeCard
-        img="/icons/schedule.svg"
-        title="Schedule Meeting "
-        description="Plan your meeting"
-        handleClick={() => setMeetingState('isScheduleMeeting')}
-        className="bg-blue-1"
-      />
-      <HomeCard
-        img="/icons/recordings.svg"
-        title="View Recordings"
-        description="Check out your recordings"
-        handleClick={() => router.push('/recordings')}
-        className="bg-purple-1"
-      />
-      <HomeCard
-        img="/icons/join-meeting.svg"
-        title="Join Meeting"
-        description="via invitation link"
-        handleClick={() => setMeetingState('isJoiningMeeting')}
-        className="bg-yellow-1"
-      />
+    <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="flex h-full flex-col justify-between rounded-2xl border border-orbit-border bg-orbit-panel p-6 shadow-sm">
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-semibold uppercase tracking-wide text-orbit-muted">
+            Start
+          </p>
+          <h2 className="text-xl font-semibold text-orbit-text">
+            Start a new meeting
+          </h2>
+          <p className="text-sm text-orbit-muted">
+            Launch a meeting instantly or schedule one for later.
+          </p>
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Button
+            onClick={() => setMeetingState('isInstantMeeting')}
+            className="bg-orbit-brand text-white hover:bg-orbit-brand/90"
+          >
+            New meeting
+          </Button>
+          <Button
+            onClick={() => setMeetingState('isScheduleMeeting')}
+            variant="outline"
+            className="border-orbit-border text-orbit-text hover:bg-orbit-surface"
+          >
+            Schedule
+          </Button>
+        </div>
+      </div>
+      <div className="flex h-full flex-col justify-between rounded-2xl border border-orbit-border bg-orbit-panel p-6 shadow-sm lg:col-span-2">
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-semibold uppercase tracking-wide text-orbit-muted">
+            Join
+          </p>
+          <h2 className="text-xl font-semibold text-orbit-text">
+            Join a meeting
+          </h2>
+          <p className="text-sm text-orbit-muted">
+            Enter a meeting link or room name to jump in.
+          </p>
+        </div>
+        <div className="mt-6 flex w-full flex-col gap-3 sm:flex-row">
+          <Input
+            placeholder="Enter meeting link or room"
+            className="h-11 border-orbit-border bg-orbit-panel text-orbit-text focus-visible:ring-0 focus-visible:ring-offset-0"
+            onChange={(e) => setValues({ ...values, link: e.target.value })}
+          />
+          <Button
+            onClick={() => router.push(`/meeting/${values.link}`)}
+            className="h-11 bg-orbit-brand text-white hover:bg-orbit-brand/90"
+          >
+            Join
+          </Button>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-4 text-sm text-orbit-muted">
+          <button
+            className="flex items-center gap-2 font-medium text-orbit-text hover:text-orbit-brand"
+            onClick={() => router.push('/recordings')}
+          >
+            View recordings
+          </button>
+          <button
+            className="flex items-center gap-2 font-medium text-orbit-text hover:text-orbit-brand"
+            onClick={() => setMeetingState('isJoiningMeeting')}
+          >
+            Join with invite link
+          </button>
+        </div>
+      </div>
 
       {!callDetails ? (
         <MeetingModel
           isOpen={meetingState === 'isScheduleMeeting'}
           onClose={() => setMeetingState(undefined)}
-          title="Start Instant Meeting"
-          className="text-center"
+          title="Schedule a meeting"
+          className="text-left"
           handleClick={createMeeting}
+          buttonText="Schedule"
         >
           <div className="flex flex-col gap-2.5">
-            <label className="text-base text-normal leading-[22px]">
-              Add a description
+            <label className="text-sm font-medium text-orbit-text">
+              Meeting title
             </label>
             <Textarea
-              className="border-none bg-dark-3 focus:visible:ring-0 focus-visible:ring-offset-0 "
+              className="border border-orbit-border bg-orbit-panel text-orbit-text focus-visible:ring-0 focus-visible:ring-offset-0"
               onChange={(e) =>
                 setValues((value) => ({
                   ...value,
@@ -125,7 +166,7 @@ const MeetingTypeList = () => {
             />
           </div>
           <div className="flex w-full flex-col gap-2.5">
-            <label className="text-base text-normal leading-[22px]">
+            <label className="text-sm font-medium text-orbit-text">
               Select date and time
             </label>
             <ReactDatePicker
@@ -138,7 +179,7 @@ const MeetingTypeList = () => {
               timeIntervals={15}
               timeCaption="time"
               dateFormat={'MMMM d, yyyy h:mm aa'}
-              className="bg-dark-3 w-full rounded p-2 focus:outline-none"
+              className="w-full rounded border border-orbit-border bg-orbit-panel p-2 text-orbit-text focus:outline-none"
             />
           </div>
         </MeetingModel>
@@ -146,33 +187,35 @@ const MeetingTypeList = () => {
         <MeetingModel
           isOpen={meetingState === 'isScheduleMeeting'}
           onClose={() => setMeetingState(undefined)}
-          title="Start Instant Meeting"
-          className="text-center"
+          title="Meeting scheduled"
+          className="text-left"
           handleClick={() => {
             navigator.clipboard.writeText(meetingLink);
             toast({ title: 'Link Copied' });
           }}
           image="/icons/checked.svg"
           buttonIcon="/icons/copy.svg"
-          buttonText="Copy Meeting Link"
+          buttonText="Copy meeting link"
         />
       )}
       {/* Model for instant meeting */}
       <MeetingModel
         isOpen={meetingState === 'isInstantMeeting'}
         onClose={() => setMeetingState(undefined)}
-        title="Start Instant Meeting"
+        title="Start an instant meeting"
         handleClick={createMeeting}
+        buttonText="Start now"
       />
       <MeetingModel
         isOpen={meetingState === 'isJoiningMeeting'}
         onClose={() => setMeetingState(undefined)}
-        title="Type your link here"
+        title="Join with invite link"
         handleClick={() => router.push(`/meeting/${values.link}`)}
+        buttonText="Join"
       >
         <Input
           placeholder="Meeting link"
-          className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="border border-orbit-border bg-orbit-panel text-orbit-text focus-visible:ring-0 focus-visible:ring-offset-0"
           onChange={(e) => setValues({ ...values, link: e.target.value })}
         />
       </MeetingModel>

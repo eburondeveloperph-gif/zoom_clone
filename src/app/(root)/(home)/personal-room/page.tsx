@@ -15,13 +15,13 @@ const Table = ({
   description: string;
 }) => {
   return (
-    <div className="flex flex-col gap-2 items-start xl:flex-row">
-      <h1 className="text-base font-medium text-sky-1 lg:text-xl xl:min-x-32">
-        {title}:
-      </h1>
-      <h1 className="truncate text-sm font-bold max-sm:max-w-[320px] lg:text-xl">
+    <div className="flex flex-col gap-1 border-b border-orbit-border pb-4">
+      <p className="text-xs font-semibold uppercase tracking-wide text-orbit-muted">
+        {title}
+      </p>
+      <p className="truncate text-sm font-medium text-orbit-text max-sm:max-w-[320px] lg:text-base">
         {description}
-      </h1>
+      </p>
     </div>
   );
 };
@@ -55,32 +55,48 @@ const PersonalRoom = () => {
     }
   };
   return (
-    <section className="flex size-full flex-col gap-10 text-white">
-      <h1 className="text-3xl font-bold">Personal Room</h1>
-
-      <div className="flex w-full flex-col gap-8 xl:max-w=-[900px]">
-        <Table
-          title="Topic"
-          description={`${user?.username || user?.firstName}'s meeting room`}
-        />
-        <Table title="Meeting ID" description={meetingId!} />
-        <Table title="Invite Link" description={inviteLink!} />
+    <section className="flex size-full flex-col gap-8">
+      <div className="flex flex-col gap-2">
+        <p className="text-xs font-semibold uppercase tracking-wide text-orbit-muted">
+          Your space
+        </p>
+        <h1 className="text-2xl font-semibold text-orbit-text">
+          Personal meeting room
+        </h1>
+        <p className="text-sm text-orbit-muted">
+          Use this permanent link for quick instant meetings.
+        </p>
       </div>
-      <div className="flex gap-5">
-        <Button className="bg-blue-1" onClick={startRoom}>
-          Start Meeting
-        </Button>
-        <Button
-          className="bg-dark-3"
-          onClick={() => {
-            navigator.clipboard.writeText(inviteLink);
-            toast({
-              title: 'Link Copied',
-            });
-          }}
-        >
-          Copy Invitation
-        </Button>
+
+      <div className="rounded-2xl border border-orbit-border bg-orbit-panel p-6 shadow-sm">
+        <div className="flex w-full flex-col gap-4 xl:max-w-[900px]">
+          <Table
+            title="Room topic"
+            description={`${user?.username || user?.firstName}'s meeting room`}
+          />
+          <Table title="Meeting ID" description={meetingId!} />
+          <Table title="Invite link" description={inviteLink!} />
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Button
+            className="bg-orbit-brand text-white hover:bg-orbit-brand/90"
+            onClick={startRoom}
+          >
+            Start meeting
+          </Button>
+          <Button
+            variant="outline"
+            className="border-orbit-border text-orbit-text hover:bg-orbit-surface"
+            onClick={() => {
+              navigator.clipboard.writeText(inviteLink);
+              toast({
+                title: 'Link Copied',
+              });
+            }}
+          >
+            Copy invitation
+          </Button>
+        </div>
       </div>
     </section>
   );

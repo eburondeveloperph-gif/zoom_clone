@@ -25,6 +25,18 @@ const config = {
           3: "#252A41",
           4: "#1E2757",
         },
+        orbit: {
+          brand: "#2684FF",
+          dark: "#1F2024",
+          darker: "#15161A",
+          surface: "#F4F5F7",
+          panel: "#FFFFFF",
+          border: "#E5E7EB",
+          text: "#111827",
+          muted: "#6B7280",
+          success: "#16A34A",
+          danger: "#DC2626",
+        },
         blue: {
           1: "#0E78F9",
         },

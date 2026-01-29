@@ -29,13 +29,13 @@ const MeetingCard = ({
 }: MeetingCardProps) => {
   const { toast } = useToast();
   return (
-    <section className="flex min-h-[258px] w-full flex-col justify-between rounded-[14px] bg-dark-1 px-5 py-8 xl:max-w-[568px]">
+    <section className="flex min-h-[258px] w-full flex-col justify-between rounded-[16px] border border-orbit-border bg-orbit-panel px-5 py-8 shadow-sm xl:max-w-[568px]">
       <article className="flex flex-col gap-5">
         <Image src={icon} alt="upcoming" width={28} height={28} />
         <div className="flex justify-between">
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-bold">{title}</h1>
-            <p className="text-base font-normal">{date}</p>
+            <h1 className="text-xl font-semibold text-orbit-text">{title}</h1>
+            <p className="text-sm font-normal text-orbit-muted">{date}</p>
           </div>
         </div>
       </article>
@@ -52,13 +52,16 @@ const MeetingCard = ({
               style={{ top: 0, left: index * 28 }}
             />
           ))}
-          <div className="flex-center absolute left-[136px] size-10 rounded-full border-[5px] border-dark-3 bg-dark-4">
+          <div className="flex-center absolute left-[136px] size-10 rounded-full border-[5px] border-orbit-border bg-orbit-surface text-orbit-text">
             +5
           </div>
         </div>
         {!isPreviousMeeting && (
           <div className="flex gap-2">
-            <Button onClick={handleClick} className="rounded bg-blue-1 px-6">
+            <Button
+              onClick={handleClick}
+              className="rounded bg-orbit-brand px-6 text-white"
+            >
               {buttonIcon1 && (
                 <Image src={buttonIcon1} alt="feature" width={20} height={20} />
               )}
@@ -71,7 +74,7 @@ const MeetingCard = ({
                   title: 'Link Copied',
                 });
               }}
-              className="bg-dark-4 px-6"
+              className="border border-orbit-border bg-orbit-surface px-6 text-orbit-text"
             >
               <Image
                 src="/icons/copy.svg"
